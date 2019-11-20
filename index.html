@@ -3,18 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Google search trends displayed in a World map">
+    <meta name="description" content="Mean sea level trends displayed in a World map">
     <meta name="keywords" content="Google, trends, world">
     <meta name="author" content="Semidán Robaina Estévez">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sea Level</title>
-    <script src="http://www.webglearth.com/v2/api.js"></script>
-    <script src="stations_data.json"></script>
+    <script src="vendor/webglEarth_api.js"></script>
+    <!-- <script src="vendor/leaflet/leaflet.js"></script> -->
+    <!-- <link rel="stylesheet" href="vendor/leaflet/leaflet.css"> -->
+    <script src="vendor/jquery-3.4.1.min.js"></script>
+    <script src="stations_data.js"></script>
     <script src="WebGLsketch.js"></script>
+    <!-- <script src="LeafletSketch.js"></script> -->
     <link rel="stylesheet" href="styles.css">
   </head>
 
-  <body onload="initialize()">
+  <!-- <body onload="initialize()"> -->
+  <body>
     <div id="earth_div"></div>
   </body>
 </html>

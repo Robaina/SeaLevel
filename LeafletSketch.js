@@ -12,19 +12,26 @@ function initialize() {
     'tilting': true,
     'zooming': true
   }
-  let earth = new WE.map('earth_div', options);
-  // WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);
+  let earth = new L.map('earth_div', options);
+  // L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);
 
-  WE.tileLayer('https://webglearth.github.io/webglearth2-offline/{z}/{x}/{y}.jpg', {
-    tileSize: 256,
-    bounds: [[-85, -180], [85, 180]],
-    minZoom: 0,
-    maxZoom: 16,
-    attribution: 'WebGLEarth example',
-    tms: true
-  }).addTo(earth);
+  // L.tileLayer('https://webglearth.github.io/webglearth2-offline/{z}/{x}/{y}.jpg', {
+  //   tileSize: 256,
+  //   bounds: [[-85, -180], [85, 180]],
+  //   minZoom: 0,
+  //   maxZoom: 16,
+  //   attribution: 'WebGLEarth example',
+  //   tms: true
+  // }).addTo(earth);
 
-  markers = setMapMarkers(earth, stations);
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'your.mapbox.access.token'
+}).addTo(earth);
+
+  // markers = setMapMarkers(earth, stations);
   //earth.setView([0, 0], 1);
 
   // Start a simple rotation animation
@@ -46,7 +53,8 @@ function setMapMarkers(earth, stations) {
   for (let key in stations) {
     let station = stations[key];
 
-    let markerText = `<strong>${station.location}</strong> <br> [${station.span[0]}, ${station.span[1]}] <br>${station.difference} cm`;
+
+    let markerText = "<strong>" + station.location + "</strong> <br>" + station.difference + " cm";
 
     // if (station.trend === 1) {
     //   marker_url = "C:\\Users\\tinta\\OneDrive\\Documents\\Web_development\\SeaLevels\\imgs\\marker_positive.png";
@@ -56,7 +64,7 @@ function setMapMarkers(earth, stations) {
     //   marker_url = "imgs/marker_neutral.png";
     // }
 
-    markers[station.location] = WE.marker([station.latitude, station.longitude]);
+    markers[station.location] = L.marker([station.latitude, station.longitude]);
     markers[station.location].addTo(earth);
     markers[station.location].bindPopup(markerText, {maxWidth: 150, closeButton: true});//.openPopup();
   }
